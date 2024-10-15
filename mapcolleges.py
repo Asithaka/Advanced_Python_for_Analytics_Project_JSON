@@ -13,12 +13,15 @@ outfile_ut = open('readble_school_data.json', 'w')
 
 json.dump(sc_data, outfile_ut, indent= 2 )
 
+# Creating empty lists for total, make, female and Big 12 schools
+
 big_12_schools = []
 enrollment = []
 male1 = []
 male = []
 female = []
 
+# Filtering the Big 12 schools from unic.json and appending them to alist
 
 for line in ut_data:
 
@@ -37,29 +40,28 @@ print(male)
 print(female)
 
 
-list_of_school = sc_data['features']
-
-for line in list_of_school:
-
-    print(line['properties']['NAME'])
-    print(line['properties']['STREET'] +' '+ line['properties']['CITY']+' '+ line['properties']['STATE'] + ' ' + line['properties']['ZIP'])
-
-
 name  = []
 address = [] 
 lat = []
 lon = []
-enrollment = []
-male =[]
-female =[]
 
-for line in sc_data:
+list_of_school = sc_data['features']
 
-    if line['properties']['NAME'] in big_12_schools:
-         
-        name.append(line['properties']['NAME'] )
-        address.append(line['properties']['STREET'] +line['properties']['CITY'] +line['properties']['STATE'] +line['properties']['ZIP'])
-        
+for line in list_of_school:
 
-    print(name)
+     if line['properties']['NAME'] in big_12_schools:
+
+        name.append(line['properties']['NAME'])
+        address.append(line['properties']['STREET'] +' '+ line['properties']['CITY']+' '+ line['properties']['STATE'] + ' ' + line['properties']['ZIP'])
+        lon.append(line['geometry']['coordinates'][0])
+        lat.append(line['geometry']['coordinates'][1])
+
+print(name)
+print(address)
+print(lat)
+print(lon)
+
+from plotly.graph_objs import Scattergeo, Layout
+from plotly import offline
+
 
