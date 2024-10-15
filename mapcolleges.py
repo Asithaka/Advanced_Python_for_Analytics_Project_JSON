@@ -40,10 +40,10 @@ print(male)
 print(female)
 
 
-name  = []
-address = [] 
-lat = []
-lon = []
+names  = []
+addresses = [] 
+lats = []
+lons = []
 
 list_of_school = sc_data['features']
 
@@ -51,17 +51,42 @@ for line in list_of_school:
 
      if line['properties']['NAME'] in big_12_schools:
 
-        name.append(line['properties']['NAME'])
-        address.append(line['properties']['STREET'] +' '+ line['properties']['CITY']+' '+ line['properties']['STATE'] + ' ' + line['properties']['ZIP'])
-        lon.append(line['geometry']['coordinates'][0])
-        lat.append(line['geometry']['coordinates'][1])
+        name = line['properties']['NAME']
+        address = line['properties']['STREET'] +' '+ line['properties']['CITY']+' '+ line['properties']['STATE'] + ' ' + line['properties']['ZIP']
+        lon = line['geometry']['coordinates'][0]
+        lat = line['geometry']['coordinates'][1]
 
-print(name)
-print(address)
-print(lat)
-print(lon)
+        names.append(name)
+        addresses.append(address)
+        lons.append(lon)
+        lats.append(lat)
+
+
+
+print(names)
+print(addresses)
+print(lats)
+print(lons)
 
 from plotly.graph_objs import Scattergeo, Layout
 from plotly import offline
 
+data = [{
+    'type':'scattergeo',
+    'lon': lons,
+    'lat':lats,
+    'text': big_12_schools,
+     'marker' :{
+        'size':[enrollment*5 for enrollment in enrollment],
+        'color':enrollment,
+        'colorscale': 'Viridis',
+        'reversescale': True,
+        'colorbar' : { 'title':'Enrollment'}
+    }
+}]
 
+mylayout = Layout(title = 'Enrollment of Big 12 schools')
+
+fig ={'data':data, 'layout':mylayout}
+
+offline.plot(fig, filename='EnrollmentofBIG12school.html')
