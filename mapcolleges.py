@@ -75,12 +75,12 @@ data = [{
     'type':'scattergeo',
     'lon': lons,
     'lat':lats,
-    'text': big_12_schools,
+    'text': [f"{name}'/n' {add} '/n' 'Total Enrollment': {enr} '/n' 'Male': {m} '/n' 'Female': {f}" for name,add, enr,m,f in zip(names, addresses,enrollment,male,female)],
      'marker' :{
-        'size':[enrollment*5 for enrollment in enrollment],
+        'size':[enrollment/1000 for enrollment in enrollment],
         'color':enrollment,
-        'colorscale': 'Viridis',
-        'reversescale': True,
+        'colorscale': 'ylgnbu',
+        'reversescale': False,
         'colorbar' : { 'title':'Enrollment'}
     }
 }]
