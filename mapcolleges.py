@@ -75,7 +75,7 @@ data = [{
     'type':'scattergeo',
     'lon': lons,
     'lat':lats,
-    'text': [f"{name}'/n' {add} '/n' 'Total Enrollment': {enr} '/n' 'Male': {m} '/n' 'Female': {f}" for name,add, enr,m,f in zip(names, addresses,enrollment,male,female)],
+    'text': [f" {name}\n{add}\nTotal Enrollment: {enr}\nMale: {m}\nFemale: {f} " for name,add, enr,m,f in zip(names, addresses,enrollment,male,female)],
      'marker' :{
         'size':[enrollment/1000 for enrollment in enrollment],
         'color':enrollment,
