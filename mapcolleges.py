@@ -71,11 +71,15 @@ print(lons)
 from plotly.graph_objs import Scattergeo, Layout
 from plotly import offline
 
+# "hoverinfo" is get from following documentation
+# https://plotly.github.io/plotly.py-docs/generated/plotly.graph_objects.Scattergeo.html
+
 data = [{
     'type':'scattergeo',
     'lon': lons,
     'lat':lats,
     'text': [f" {name}\n{add}\nTotal Enrollment: {enr}\nMale: {m}\nFemale: {f} " for name,add, enr,m,f in zip(names, addresses,enrollment,male,female)],
+    'hoverinfo' : 'text',
      'marker' :{
         'size':[enrollment/1000 for enrollment in enrollment],
         'color':enrollment,
